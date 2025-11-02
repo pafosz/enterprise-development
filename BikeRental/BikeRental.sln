@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeRental.Domain", "BikeRental\BikeRental.Domain.csproj", "{0BB3E4CC-7E9A-4928-B9F8-C3F6544E2A03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeRental.Domain", "BikeRental.Domain\BikeRental.Domain.csproj", "{0BB3E4CC-7E9A-4928-B9F8-C3F6544E2A03}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeRental.Tests", "BikeRental.Tests\BikeRental.Tests.csproj", "{B66E4C89-7593-4977-A0E3-9E0E507CFB3E}"
 EndProject
