@@ -12,10 +12,10 @@ public class Renter
     /// <summary>
     /// Full name of the renter.
     /// </summary>
-    public string FullName { get; set; } = string.Empty;
+    public string? FullName { get; set; }
 
     /// <summary>
     /// Contact phone number of the renter.
     /// </summary>
-    public string Phone {  get; set; } = string.Empty;
+    public string? Phone {  get; set; }
 }

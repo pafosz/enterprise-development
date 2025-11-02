@@ -11,16 +11,9 @@ namespace BikeRental.Tests;
 /// Contains unit tests for the bike rental system.
 /// Tests verify data queries, aggregation, and statistics using LINQ.
 /// </summary>
-public class RentalTests : IClassFixture<RentalFixture>
+public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
 {
-    private readonly RentalFixture _fixture;
-
-    public RentalTests(RentalFixture fixture)
-    {
-        _fixture = fixture;
-    }
-
-    /// <summary>
+     /// <summary>
     /// Checks that filtering bicycles by the "Sports" type
     /// correctly returns only sport bicycles and that
     /// the total count matches the expected number.
@@ -28,7 +21,7 @@ public class RentalTests : IClassFixture<RentalFixture>
     [Fact]
     public void ShouldReturnAllSportBicycles()
     {
-        var sportBikes = _fixture.Bicycles
+        var sportBikes = fixture.Bicycles
             .Where(b => b.Model.Type == BikeType.Sports)
             .ToList();
 
@@ -44,7 +37,7 @@ public class RentalTests : IClassFixture<RentalFixture>
     [Fact]
     public void ShouldReturnTop5ModelsByProfit()
     {
-        var top = _fixture.Rentals
+        var top = fixture.Rentals
             .GroupBy(r => r.Bicycle.Model)
             .Select(g => new
             {
@@ -66,7 +59,7 @@ public class RentalTests : IClassFixture<RentalFixture>
     [Fact]
     public void ShouldReturnTop5ModelsByDuration()
     {
-        var top = _fixture.Rentals
+        var top = fixture.Rentals
             .GroupBy(r => r.Bicycle.Model)
             .Select(g => new
             {
@@ -87,7 +80,7 @@ public class RentalTests : IClassFixture<RentalFixture>
     [Fact]
     public void ShouldReturnRentalDurationStats()
     {
-        var durations = _fixture.Rentals.Select(r => r.DurationHours).ToList();
+        var durations = fixture.Rentals.Select(r => r.DurationHours).ToList();
 
         Assert.Equal(2, durations.Min());
         Assert.Equal(7, durations.Max());
@@ -101,7 +94,7 @@ public class RentalTests : IClassFixture<RentalFixture>
     [Fact]
     public void ShouldReturnTotalRentalTimeByBikeType()
     {
-        var byType = _fixture.Rentals
+        var byType = fixture.Rentals
             .GroupBy(r => r.Bicycle.Model.Type)
             .Select(g => new { Type = g.Key, TotalHours = g.Sum(r => r.DurationHours) })
             .ToDictionary(x => x.Type, x => x.TotalHours);
@@ -119,7 +112,7 @@ public class RentalTests : IClassFixture<RentalFixture>
     [Fact]
     public void ShouldReturnTopRentersByCount()
     {
-        var stats = _fixture.Rentals
+        var stats = fixture.Rentals
             .GroupBy(r => r.Renter)
             .Select(g => new { Renter = g.Key.FullName, Count = g.Count() })
             .OrderByDescending(x => x.Count)

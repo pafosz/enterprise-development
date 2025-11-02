@@ -12,12 +12,12 @@ public class Bicycle
     /// <summary>
     /// Serial number printed on the bicycle frame.
     /// </summary>
-    public string SerialNumber { get; set; } = string.Empty;
+    public string? SerialNumber { get; set; } 
 
     /// <summary>
     /// Color of the bicycle.
     /// </summary>
-    public string Color {  get; set; } = string.Empty;
+    public string? Color {  get; set; } 
 
     /// <summary>
     /// The model to which this bicycle belongs.

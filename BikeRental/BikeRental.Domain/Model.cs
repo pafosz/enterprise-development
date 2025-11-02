@@ -15,7 +15,7 @@ public class Model
     /// <summary>
     /// Name or title of the model.
     /// </summary>
-    public string Name { get; set; } = string.Empty;
+    public string? Name { get; set; }
 
     /// <summary>
     /// Type of the bicycle (city, sport, mountain, etc.).

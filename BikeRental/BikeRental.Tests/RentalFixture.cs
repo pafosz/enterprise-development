@@ -36,8 +36,8 @@ public class RentalFixture
     public RentalFixture()
     {
         // --- Models ---
-        Models = new List<Model>
-        {
+        Models =
+        [
             new() { Id = 1, Name = "Stels Navigator", Type = BikeType.Urban, WheelSize = 26, MaxWeight = 120, Weight = 15, Brakes = BrakeType.Disc, Year = 2022, PricePerHour = 150 },
             new() { Id = 2, Name = "Cube Race", Type = BikeType.Sports, WheelSize = 28, MaxWeight = 100, Weight = 12, Brakes = BrakeType.Rim, Year = 2021, PricePerHour = 250 },
             new() { Id = 3, Name = "Merida Speed", Type = BikeType.Sports, WheelSize = 29, MaxWeight = 110, Weight = 13, Brakes = BrakeType.Disc, Year = 2023, PricePerHour = 300 },
@@ -48,11 +48,11 @@ public class RentalFixture
             new() { Id = 8, Name = "Scott City", Type = BikeType.Urban, WheelSize = 28, MaxWeight = 100, Weight = 12, Brakes = BrakeType.Rim, Year = 2023, PricePerHour = 180 },
             new() { Id = 9, Name = "Author MTB", Type = BikeType.Mountain, WheelSize = 29, MaxWeight = 115, Weight = 14, Brakes = BrakeType.Disc, Year = 2024, PricePerHour = 260 },
             new() { Id = 10, Name = "Orbea Aero", Type = BikeType.Sports, WheelSize = 28, MaxWeight = 100, Weight = 11, Brakes = BrakeType.Disc, Year = 2023, PricePerHour = 320 }
-        };
+        ];
 
         // --- Bicycles ---
-        Bicycles = new List<Bicycle>
-        {
+        Bicycles =
+        [
             new() { Id = 1, SerialNumber = "SN1001", Color = "Red", Model = Models[0] },
             new() { Id = 2, SerialNumber = "SN1002", Color = "Blue", Model = Models[1] },
             new() { Id = 3, SerialNumber = "SN1003", Color = "Green", Model = Models[2] },
@@ -63,11 +63,11 @@ public class RentalFixture
             new() { Id = 8, SerialNumber = "SN1008", Color = "Gray", Model = Models[7] },
             new() { Id = 9, SerialNumber = "SN1009", Color = "Orange", Model = Models[8] },
             new() { Id = 10, SerialNumber = "SN1010", Color = "Blue", Model = Models[9] }
-        };
+        ];
 
         // --- Renters ---
-        Renters = new List<Renter>
-        {
+        Renters =
+        [
             new() { Id = 1, FullName = "John Smith", Phone = "+1-202-111-22-33" },
             new() { Id = 2, FullName = "Mary Johnson", Phone = "+1-202-222-33-44" },
             new() { Id = 3, FullName = "Robert Brown", Phone = "+1-202-333-44-55" },
@@ -78,11 +78,11 @@ public class RentalFixture
             new() { Id = 8, FullName = "David Taylor", Phone = "+1-202-888-99-00" },
             new() { Id = 9, FullName = "Linda Anderson", Phone = "+1-202-999-00-11" },
             new() { Id = 10, FullName = "James Thomas", Phone = "+1-202-000-11-22" }
-        };
+        ];
 
         // --- Rentals ---
-        Rentals = new List<Rental>
-        {
+        Rentals =
+        [
             new() { Id = 1, Bicycle = Bicycles[0], Renter = Renters[0], StartTime = DateTime.Now.AddHours(-12), DurationHours = 3 },
             new() { Id = 2, Bicycle = Bicycles[1], Renter = Renters[1], StartTime = DateTime.Now.AddHours(-10), DurationHours = 5 },
             new() { Id = 3, Bicycle = Bicycles[2], Renter = Renters[2], StartTime = DateTime.Now.AddHours(-8), DurationHours = 2 },
@@ -93,6 +93,6 @@ public class RentalFixture
             new() { Id = 8, Bicycle = Bicycles[7], Renter = Renters[7], StartTime = DateTime.Now.AddHours(-3), DurationHours = 3 },
             new() { Id = 9, Bicycle = Bicycles[8], Renter = Renters[8], StartTime = DateTime.Now.AddHours(-5), DurationHours = 4 },
             new() { Id = 10, Bicycle = Bicycles[9], Renter = Renters[9], StartTime = DateTime.Now.AddHours(-7), DurationHours = 6 }
-        };
+        ];
     }
 }
