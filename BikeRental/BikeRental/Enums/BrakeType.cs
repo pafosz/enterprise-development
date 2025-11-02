@@ -1,4 +1,4 @@
-﻿namespace BikeRental.Enums;
+﻿namespace BikeRental.Domain.Enums;
 /// <summary>
 /// Represents the type of bicycle braking system.
 /// </summary>

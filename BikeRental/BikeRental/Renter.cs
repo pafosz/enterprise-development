@@ -1,4 +1,4 @@
-﻿namespace BikeRental;
+﻿namespace BikeRental.Domain;
 /// <summary>
 /// Represents a person who rents bicycles.
 /// </summary>

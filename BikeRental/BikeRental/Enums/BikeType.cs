@@ -1,4 +1,4 @@
-﻿namespace BikeRental.Enums;
+﻿namespace BikeRental.Domain.Enums;
 /// <summary>
 /// Represents the type of the bicycle.
 /// </summary>
@@ -15,4 +15,3 @@ public enum BikeType
     /// <summary>Child-sized bicycle type.</summary>
     Childrens
 }
-

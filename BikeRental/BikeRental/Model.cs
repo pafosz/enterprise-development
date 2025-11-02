@@ -1,6 +1,6 @@
-﻿using BikeRental.Enums;
+﻿using BikeRental.Domain.Enums;
 
-namespace BikeRental;
+namespace BikeRental.Domain;
 
 /// <summary>
 /// Represents the bicycle model specification.
@@ -40,7 +40,7 @@ public class Model
     /// <summary>
     /// Type of brake system installed on the bicycle.
     /// </summary>
-    public string Brakes { get; set; } = string.Empty;
+    public BrakeType Brakes { get; set; } 
 
     /// <summary>
     /// Year when this model was manufactured or introduced.

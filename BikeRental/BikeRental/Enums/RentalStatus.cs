@@ -1,4 +1,4 @@
-﻿namespace BikeRental.Enums;
+﻿namespace BikeRental.Domain.Enums;
 public enum RentalStatus
 {
     Active,

@@ -1,4 +1,4 @@
-﻿namespace BikeRental;
+﻿namespace BikeRental.Domain;
 /// <summary>
 /// Represents a physical bicycle unit available for rental.
 /// </summary>
