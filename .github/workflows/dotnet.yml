@@ -1,10 +1,10 @@
-name: .NET CI
+name: .NET CI — BikeRental (Lab 1, Variant 70)
 
 on:
   push:
-    branches: [ "lab_1", "main" ]
+    branches: ["lab_1", "main"]
   pull_request:
-    branches: [ "lab_1", "main" ]
+    branches: ["lab_1", "main"]
 
 jobs:
   build:
@@ -14,16 +14,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Setup .NET 8 SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: 8.0.x
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          dotnet restore BikeRental/BikeRental.Domain/BikeRental.Domain.csproj
+          dotnet restore BikeRental/BikeRental.Tests/BikeRental.Tests.csproj
 
-      - name: Build
-        run: dotnet build --no-restore --configuration Release
+      - name: Build Domain project
+        run: dotnet build BikeRental/BikeRental.Domain/BikeRental.Domain.csproj --no-restore --configuration Release
 
-      - name: Run tests
-        run: dotnet test --no-build --configuration Release --verbosity normal
+      - name: Build and run tests
+        run: |
+          dotnet build BikeRental/BikeRental.Tests/BikeRental.Tests.csproj --no-restore --configuration Release
+          dotnet test BikeRental/BikeRental.Tests/BikeRental.Tests.csproj --no-build --configuration Release --verbosity normal
