@@ -7,7 +7,7 @@ namespace BikeRental.Tests;
 /// Provides preloaded in-memory data for testing purposes.
 /// This fixture replaces the static DataSeed and is created once per test class.
 /// </summary>
-public class DataFixture
+public class RentalFixture
 {
     /// <summary>
     /// List of available bicycle models in the rental system.
@@ -33,7 +33,7 @@ public class DataFixture
     /// Initializes the in-memory test data. 
     /// Fully identical to the static DataSeed class, but instance-based for fixture use.
     /// </summary>
-    public DataFixture()
+    public RentalFixture()
     {
         // --- Models ---
         Models = new List<Model>

@@ -11,11 +11,11 @@ namespace BikeRental.Tests;
 /// Contains unit tests for the bike rental system.
 /// Tests verify data queries, aggregation, and statistics using LINQ.
 /// </summary>
-public class RentalTests : IClassFixture<DataFixture>
+public class RentalTests : IClassFixture<RentalFixture>
 {
-    private readonly DataFixture _fixture;
+    private readonly RentalFixture _fixture;
 
-    public RentalTests(DataFixture fixture)
+    public RentalTests(RentalFixture fixture)
     {
         _fixture = fixture;
     }
