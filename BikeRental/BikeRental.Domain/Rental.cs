@@ -12,22 +12,22 @@ public class Rental
     /// <summary>
     /// The bicycle being rented.
     /// </summary>
-    public Bicycle Bicycle { get; set; } = new Bicycle();
+    public required Bicycle Bicycle { get; set; } 
 
     /// <summary>
     /// The renter who rented the bicycle.
     /// </summary>
-    public Renter Renter { get; set; } = new Renter();
+    public required Renter Renter { get; set; } 
 
     /// <summary>
     /// Start time of the rental.
     /// </summary>
-    public DateTime StartTime { get; set; }
+    public required DateTime StartTime { get; set; }
 
     /// <summary>
     /// Duration of the rental in hours.
     /// </summary>
-    public int DurationHours { get; set; }
+    public required int DurationHours { get; set; }
 
     /// <summary>
     /// Calculated total rental price based on duration and model price per hour.

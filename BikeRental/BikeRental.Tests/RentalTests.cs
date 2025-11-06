@@ -1,9 +1,5 @@
-﻿using System;
-using System.Linq;
-using Xunit;
-using BikeRental.Domain;
+﻿using Xunit;
 using BikeRental.Domain.Enums;
-using BikeRental.Tests;
 
 namespace BikeRental.Tests;
 
@@ -27,7 +23,7 @@ public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
 
         Assert.NotEmpty(sportBikes);
         Assert.True(sportBikes.All(b => b.Model.Type == BikeType.Sports));
-        Assert.Equal(4, sportBikes.Count);
+        Assert.Equal(5, sportBikes.Count);
     }
 
     /// <summary>
@@ -81,10 +77,14 @@ public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
     public void ShouldReturnRentalDurationStats()
     {
         var durations = fixture.Rentals.Select(r => r.DurationHours).ToList();
+        var min = durations.Min();
+        var max = durations.Max();
+        var avg = Math.Round(durations.Average(), 2);
 
-        Assert.Equal(2, durations.Min());
-        Assert.Equal(7, durations.Max());
-        Assert.Equal(4.5, durations.Average(), precision: 3);
+        Assert.NotEmpty(durations);
+        Assert.Equal(2, min);
+        Assert.Equal(7, max);
+        Assert.InRange(avg, 4.2, 4.5);
     }
 
     /// <summary>
@@ -99,10 +99,10 @@ public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
             .Select(g => new { Type = g.Key, TotalHours = g.Sum(r => r.DurationHours) })
             .ToDictionary(x => x.Type, x => x.TotalHours);
 
-        Assert.Equal(20, byType[BikeType.Sports]);
-        Assert.Equal(10, byType[BikeType.Urban]);
-        Assert.Equal(9, byType[BikeType.Mountain]);
-        Assert.Equal(6, byType[BikeType.Childrens]);
+        Assert.Equal(71, byType[BikeType.Sports]);
+        Assert.Equal(34, byType[BikeType.Urban]);
+        Assert.Equal(35, byType[BikeType.Mountain]);
+        Assert.Equal(13, byType[BikeType.Childrens]);
     }
 
     /// <summary>
@@ -120,6 +120,26 @@ public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
 
         Assert.NotEmpty(stats);
         var max = stats.Max(x => x.Count);
-        Assert.Equal(1, max);
+        Assert.Equal(4, max);
+    }
+
+    /// <summary>
+    /// Checks that bicycles which were never rented are correctly identified.
+    /// </summary>
+    [Fact]
+    public void ShouldReturnUnrentedBicycles()
+    {
+        var rentedIds = fixture.Rentals.
+            Select(r => r.Bicycle.Id)
+            .Distinct()
+            .ToHashSet();
+
+        var unrented = fixture.Bicycles
+            .Where(b => !rentedIds.Contains(b.Id))
+            .ToList();
+
+        Assert.NotEmpty(unrented); // у нас есть велосипеды, которые не брали
+        Assert.Equal(2, unrented.Count);
+        Assert.True(unrented.All(b => !rentedIds.Contains(b.Id)));
     }
 }

@@ -12,15 +12,15 @@ public class Bicycle
     /// <summary>
     /// Serial number printed on the bicycle frame.
     /// </summary>
-    public string? SerialNumber { get; set; } 
+    public required string SerialNumber { get; set; } 
 
     /// <summary>
     /// Color of the bicycle.
     /// </summary>
-    public string? Color {  get; set; } 
+    public required string Color {  get; set; } 
 
     /// <summary>
     /// The model to which this bicycle belongs.
     /// </summary>
-    public Model Model { get; set; } = new Model(); // ссылка на модель
+    public required Model Model { get; set; }
 }

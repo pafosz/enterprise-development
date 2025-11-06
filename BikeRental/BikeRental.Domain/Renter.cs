@@ -12,7 +12,7 @@ public class Renter
     /// <summary>
     /// Full name of the renter.
     /// </summary>
-    public string? FullName { get; set; }
+    public required string FullName { get; set; }
 
     /// <summary>
     /// Contact phone number of the renter.

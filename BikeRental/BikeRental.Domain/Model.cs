@@ -20,7 +20,7 @@ public class Model
     /// <summary>
     /// Type of the bicycle (city, sport, mountain, etc.).
     /// </summary>
-    public BikeType Type { get; set; }
+    public required BikeType Type { get; set; }
 
     /// <summary>
     /// Wheel size of the bicycle in inches.
@@ -30,7 +30,7 @@ public class Model
     /// <summary>
     /// Maximum supported rider weight in kilograms.
     /// </summary>
-    public double MaxWeight { get; set; }
+    public required double MaxWeight { get; set; }
 
     /// <summary>
     /// Weight of the bicycle itself in kilograms.
@@ -50,5 +50,5 @@ public class Model
     /// <summary>
     /// Price for one hour of bicycle rental.
     /// </summary>
-    public decimal PricePerHour { get; set; }
+    public required decimal PricePerHour { get; set; }
 }
