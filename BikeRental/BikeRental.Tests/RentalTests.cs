@@ -1,4 +1,5 @@
 ﻿using Xunit;
+using BikeRental.Domain;
 using BikeRental.Domain.Enums;
 
 namespace BikeRental.Tests;
@@ -18,11 +19,11 @@ public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
     public void ShouldReturnAllSportBicycles()
     {
         var sportBikes = fixture.Bicycles
-            .Where(b => b.Model.Type == BikeType.Sports)
+            .Where(b => b.Model!.Type == BikeType.Sports)
             .ToList();
 
         Assert.NotEmpty(sportBikes);
-        Assert.True(sportBikes.All(b => b.Model.Type == BikeType.Sports));
+        Assert.True(sportBikes.All(b => b.Model!.Type == BikeType.Sports));
         Assert.Equal(5, sportBikes.Count);
     }
 
@@ -34,10 +35,10 @@ public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
     public void ShouldReturnTop5ModelsByProfit()
     {
         var top = fixture.Rentals
-            .GroupBy(r => r.Bicycle.Model)
+            .GroupBy(r => r.Bicycle!.Model)
             .Select(g => new
             {
-                Model = g.Key.Name,
+                Model = g.Key!.Name,
                 Profit = g.Sum(r => r.TotalPrice)
             })
             .OrderByDescending(x => x.Profit)
@@ -56,10 +57,10 @@ public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
     public void ShouldReturnTop5ModelsByDuration()
     {
         var top = fixture.Rentals
-            .GroupBy(r => r.Bicycle.Model)
+            .GroupBy(r => r.Bicycle!.Model)
             .Select(g => new
             {
-                Model = g.Key.Name,
+                Model = g.Key!.Name,
                 TotalHours = g.Sum(r => r.DurationHours)
             })
             .OrderByDescending(x => x.TotalHours)
@@ -95,7 +96,7 @@ public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
     public void ShouldReturnTotalRentalTimeByBikeType()
     {
         var byType = fixture.Rentals
-            .GroupBy(r => r.Bicycle.Model.Type)
+            .GroupBy(r => r.Bicycle!.Model!.Type)
             .Select(g => new { Type = g.Key, TotalHours = g.Sum(r => r.DurationHours) })
             .ToDictionary(x => x.Type, x => x.TotalHours);
 
@@ -114,7 +115,7 @@ public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
     {
         var stats = fixture.Rentals
             .GroupBy(r => r.Renter)
-            .Select(g => new { Renter = g.Key.FullName, Count = g.Count() })
+            .Select(g => new { Renter = g.Key!.FullName, Count = g.Count() })
             .OrderByDescending(x => x.Count)
             .ToList();
 
@@ -130,7 +131,7 @@ public class RentalTests(RentalFixture fixture) : IClassFixture<RentalFixture>
     public void ShouldReturnUnrentedBicycles()
     {
         var rentedIds = fixture.Rentals.
-            Select(r => r.Bicycle.Id)
+            Select(r => r.Bicycle!.Id)
             .Distinct()
             .ToHashSet();
 

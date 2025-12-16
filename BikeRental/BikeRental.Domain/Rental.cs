@@ -7,17 +7,27 @@ public class Rental
     /// <summary>
     /// Unique identifier for the rental record.
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
+
+    /// <summary>
+    /// Unique identifier of the bicycle being rented.
+    /// </summary>
+    public required int BicycleId { get; set; }
 
     /// <summary>
     /// The bicycle being rented.
     /// </summary>
-    public required Bicycle Bicycle { get; set; } 
+    public Bicycle? Bicycle { get; set; }
+
+    /// <summary>
+    /// Unique identifier of the renter who rented the bicycle.
+    /// </summary>
+    public required int RenterId { get; set; }
 
     /// <summary>
     /// The renter who rented the bicycle.
     /// </summary>
-    public required Renter Renter { get; set; } 
+    public Renter? Renter { get; set; } 
 
     /// <summary>
     /// Start time of the rental.
@@ -32,5 +42,5 @@ public class Rental
     /// <summary>
     /// Calculated total rental price based on duration and model price per hour.
     /// </summary>
-    public decimal TotalPrice => Bicycle.Model.PricePerHour * DurationHours;
+    public decimal TotalPrice => (Bicycle?.Model?.PricePerHour ?? 0m) * DurationHours;
 }

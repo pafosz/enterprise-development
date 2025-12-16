@@ -7,7 +7,7 @@ public class Renter
     /// <summary>
     /// Unique identifier for the renter.
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Full name of the renter.

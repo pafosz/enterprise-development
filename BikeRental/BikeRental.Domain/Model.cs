@@ -10,7 +10,7 @@ public class Model
     /// <summary>
     /// Unique identifier for the bicycle model.
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Name or title of the model.
