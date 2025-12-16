@@ -61,7 +61,7 @@ public class BicycleService(
     public async Task<BicycleDto> Update(BicycleCreateUpdateDto dto, int dtoId)
     {
         var entity = await bicycleRepository.Read(dtoId) ?? throw new KeyNotFoundException($"Bicycle with id '{dtoId}' was not found.");
-        _ = await modelRepository.Read(dto.ModelId) ?? throw new InvalidOperationException($"Model with id '{dto.ModelId}' was not found.");
+        _ = await modelRepository.Read(dto.ModelId) ?? throw new KeyNotFoundException($"Model with id '{dto.ModelId}' was not found.");
         mapper.Map(dto, entity);
 
         var updated = await bicycleRepository.Update(entity);

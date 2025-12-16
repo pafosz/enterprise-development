@@ -1,5 +1,4 @@
-﻿using BikeRental.Domain;
-using BikeRental.Domain.Enums;
+﻿using BikeRental.Domain.Enums;
 
 namespace BikeRental.Domain;
 
@@ -9,6 +8,8 @@ namespace BikeRental.Domain;
 /// </summary>
 public class RentalFixture
 {
+    public static readonly DateTime DateUtc = DateTime.SpecifyKind(new DateTime(2025, 12, 15, 0, 0, 0), DateTimeKind.Utc);
+
     /// <summary>
     /// List of available bicycle models in the rental system.
     /// </summary>
@@ -85,41 +86,41 @@ public class RentalFixture
         // --- Rentals ---
         Rentals =
         [
-            new() { Id = 1, BicycleId = Bicycles[0].Id, Bicycle = Bicycles[0], RenterId = Renters[0].Id, Renter = Renters[0], StartTime = DateTime.Now.AddHours(-12), DurationHours = 3 },
-            new() { Id = 2, BicycleId = Bicycles[1].Id, Bicycle = Bicycles[1], RenterId = Renters[1].Id, Renter = Renters[1], StartTime = DateTime.Now.AddHours(-10), DurationHours = 5 },
-            new() { Id = 3, BicycleId = Bicycles[2].Id, Bicycle = Bicycles[2], RenterId = Renters[2].Id, Renter = Renters[2], StartTime = DateTime.Now.AddHours(-8), DurationHours = 2 },
-            new() { Id = 4, BicycleId = Bicycles[3].Id, Bicycle = Bicycles[3], RenterId = Renters[3].Id, Renter = Renters[3], StartTime = DateTime.Now.AddHours(-6), DurationHours = 6 },
-            new() { Id = 5, BicycleId = Bicycles[4].Id, Bicycle = Bicycles[4], RenterId = Renters[4].Id, Renter = Renters[4], StartTime = DateTime.Now.AddHours(-4), DurationHours = 4 },
-            new() { Id = 6, BicycleId = Bicycles[5].Id, Bicycle = Bicycles[5], RenterId = Renters[5].Id, Renter = Renters[5], StartTime = DateTime.Now.AddHours(-2), DurationHours = 7 },
-            new() { Id = 7, BicycleId = Bicycles[6].Id, Bicycle = Bicycles[6], RenterId = Renters[6].Id, Renter = Renters[6], StartTime = DateTime.Now.AddHours(-1), DurationHours = 5 },
-            new() { Id = 8, BicycleId = Bicycles[7].Id, Bicycle = Bicycles[7], RenterId = Renters[7].Id, Renter = Renters[7], StartTime = DateTime.Now.AddHours(-3), DurationHours = 3 },
-            new() { Id = 9, BicycleId = Bicycles[8].Id, Bicycle = Bicycles[8], RenterId = Renters[8].Id, Renter = Renters[8], StartTime = DateTime.Now.AddHours(-5), DurationHours = 4 },
-            new() { Id = 10, BicycleId = Bicycles[9].Id, Bicycle = Bicycles[9], RenterId = Renters[9].Id, Renter = Renters[9], StartTime = DateTime.Now.AddHours(-7), DurationHours = 6 },
-            new() { Id = 11, BicycleId = Bicycles[1].Id, Bicycle = Bicycles[1], RenterId = Renters[2].Id, Renter = Renters[2], StartTime = DateTime.Now.AddHours(-15), DurationHours = 3 },
-            new() { Id = 12, BicycleId = Bicycles[2].Id, Bicycle = Bicycles[2], RenterId = Renters[4].Id, Renter = Renters[4], StartTime = DateTime.Now.AddHours(-20), DurationHours = 4 },
-            new() { Id = 13, BicycleId = Bicycles[5].Id, Bicycle = Bicycles[5], RenterId = Renters[0].Id, Renter = Renters[0], StartTime = DateTime.Now.AddHours(-30), DurationHours = 2 },
-            new() { Id = 14, BicycleId = Bicycles[7].Id, Bicycle = Bicycles[7], RenterId = Renters[3].Id, Renter = Renters[3], StartTime = DateTime.Now.AddHours(-25), DurationHours = 5 },
-            new() { Id = 15, BicycleId = Bicycles[9].Id, Bicycle = Bicycles[9], RenterId = Renters[6].Id, Renter = Renters[6], StartTime = DateTime.Now.AddHours(-50), DurationHours = 3 },
-            new() { Id = 16, BicycleId = Bicycles[0].Id, Bicycle = Bicycles[0], RenterId = Renters[1].Id, Renter = Renters[1], StartTime = DateTime.Now.AddHours(-35), DurationHours = 2 },
-            new() { Id = 17, BicycleId = Bicycles[4].Id, Bicycle = Bicycles[4], RenterId = Renters[9].Id, Renter = Renters[9], StartTime = DateTime.Now.AddHours(-40), DurationHours = 6 },
-            new() { Id = 18, BicycleId = Bicycles[3].Id, Bicycle = Bicycles[3], RenterId = Renters[5].Id, Renter = Renters[5], StartTime = DateTime.Now.AddHours(-18), DurationHours = 7 },
-            new() { Id = 19, BicycleId = Bicycles[8].Id, Bicycle = Bicycles[8], RenterId = Renters[8].Id, Renter = Renters[8], StartTime = DateTime.Now.AddHours(-28), DurationHours = 5 },
-            new() { Id = 20, BicycleId = Bicycles[6].Id, Bicycle = Bicycles[6], RenterId = Renters[2].Id, Renter = Renters[2], StartTime = DateTime.Now.AddHours(-16), DurationHours = 3 },
-            new() { Id = 21, BicycleId = Bicycles[5].Id, Bicycle = Bicycles[5], RenterId = Renters[0].Id, Renter = Renters[0], StartTime = DateTime.Now.AddDays(-3).AddHours(-4), DurationHours = 6 },
-            new() { Id = 22, BicycleId = Bicycles[2].Id, Bicycle = Bicycles[2], RenterId = Renters[4].Id, Renter = Renters[4], StartTime = DateTime.Now.AddDays(-2).AddHours(-2), DurationHours = 4 },
-            new() { Id = 23, BicycleId = Bicycles[7].Id, Bicycle = Bicycles[7], RenterId = Renters[7].Id, Renter = Renters[7], StartTime = DateTime.Now.AddDays(-1).AddHours(-1), DurationHours = 2 },
-            new() { Id = 24, BicycleId = Bicycles[1].Id, Bicycle = Bicycles[1], RenterId = Renters[3].Id, Renter = Renters[3], StartTime = DateTime.Now.AddDays(-1).AddHours(-5), DurationHours = 5 },
-            new() { Id = 25, BicycleId = Bicycles[8].Id, Bicycle = Bicycles[8], RenterId = Renters[8].Id, Renter = Renters[8], StartTime = DateTime.Now.AddDays(-2).AddHours(-3), DurationHours = 7 },
-            new() { Id = 26, BicycleId = Bicycles[0].Id, Bicycle = Bicycles[0], RenterId = Renters[2].Id, Renter = Renters[2], StartTime = DateTime.Now.AddDays(-4).AddHours(-6), DurationHours = 2 },
-            new() { Id = 27, BicycleId = Bicycles[5].Id, Bicycle = Bicycles[5], RenterId = Renters[6].Id, Renter = Renters[6], StartTime = DateTime.Now.AddDays(-5).AddHours(-3), DurationHours = 5 },
-            new() { Id = 28, BicycleId = Bicycles[9].Id, Bicycle = Bicycles[9], RenterId = Renters[4].Id, Renter = Renters[4], StartTime = DateTime.Now.AddDays(-6).AddHours(-2), DurationHours = 3 },
-            new() { Id = 29, BicycleId = Bicycles[2].Id, Bicycle = Bicycles[2], RenterId = Renters[9].Id, Renter = Renters[9], StartTime = DateTime.Now.AddDays(-7).AddHours(-1), DurationHours = 4 },
-            new() { Id = 30, BicycleId = Bicycles[6].Id, Bicycle = Bicycles[6], RenterId = Renters[5].Id, Renter = Renters[5], StartTime = DateTime.Now.AddDays(-8).AddHours(-2), DurationHours = 6 },
-            new() { Id = 31, BicycleId = Bicycles[5].Id, Bicycle = Bicycles[5], RenterId = Renters[3].Id, Renter = Renters[3], StartTime = DateTime.Now.AddDays(-10).AddHours(-5), DurationHours = 5 },
-            new() { Id = 32, BicycleId = Bicycles[9].Id, Bicycle = Bicycles[9], RenterId = Renters[0].Id, Renter = Renters[0], StartTime = DateTime.Now.AddDays(-12).AddHours(-3), DurationHours = 4 },
-            new() { Id = 33, BicycleId = Bicycles[4].Id, Bicycle = Bicycles[4], RenterId = Renters[8].Id, Renter = Renters[8], StartTime = DateTime.Now.AddDays(-15).AddHours(-6), DurationHours = 7 },
-            new() { Id = 34, BicycleId = Bicycles[6].Id, Bicycle = Bicycles[6], RenterId = Renters[7].Id, Renter = Renters[7], StartTime = DateTime.Now.AddDays(-18).AddHours(-4), DurationHours = 5 },
-            new() { Id = 35, BicycleId = Bicycles[2].Id, Bicycle = Bicycles[2], RenterId = Renters[1].Id, Renter = Renters[1], StartTime = DateTime.Now.AddDays(-20).AddHours(-3), DurationHours = 3 }
+            new() { Id = 1, BicycleId = Bicycles[0].Id, Bicycle = Bicycles[0], RenterId = Renters[0].Id, Renter = Renters[0], StartTime = DateUtc.AddHours(-12), DurationHours = 3 },
+            new() { Id = 2, BicycleId = Bicycles[1].Id, Bicycle = Bicycles[1], RenterId = Renters[1].Id, Renter = Renters[1], StartTime = DateUtc.AddHours(-10), DurationHours = 5 },
+            new() { Id = 3, BicycleId = Bicycles[2].Id, Bicycle = Bicycles[2], RenterId = Renters[2].Id, Renter = Renters[2], StartTime = DateUtc.AddHours(-8), DurationHours = 2 },
+            new() { Id = 4, BicycleId = Bicycles[3].Id, Bicycle = Bicycles[3], RenterId = Renters[3].Id, Renter = Renters[3], StartTime = DateUtc.AddHours(-6), DurationHours = 6 },
+            new() { Id = 5, BicycleId = Bicycles[4].Id, Bicycle = Bicycles[4], RenterId = Renters[4].Id, Renter = Renters[4], StartTime = DateUtc.AddHours(-4), DurationHours = 4 },
+            new() { Id = 6, BicycleId = Bicycles[5].Id, Bicycle = Bicycles[5], RenterId = Renters[5].Id, Renter = Renters[5], StartTime = DateUtc.AddHours(-2), DurationHours = 7 },
+            new() { Id = 7, BicycleId = Bicycles[6].Id, Bicycle = Bicycles[6], RenterId = Renters[6].Id, Renter = Renters[6], StartTime = DateUtc.AddHours(-1), DurationHours = 5 },
+            new() { Id = 8, BicycleId = Bicycles[7].Id, Bicycle = Bicycles[7], RenterId = Renters[7].Id, Renter = Renters[7], StartTime = DateUtc.AddHours(-3), DurationHours = 3 },
+            new() { Id = 9, BicycleId = Bicycles[8].Id, Bicycle = Bicycles[8], RenterId = Renters[8].Id, Renter = Renters[8], StartTime = DateUtc.AddHours(-5), DurationHours = 4 },
+            new() { Id = 10, BicycleId = Bicycles[9].Id, Bicycle = Bicycles[9], RenterId = Renters[9].Id, Renter = Renters[9], StartTime = DateUtc.AddHours(-7), DurationHours = 6 },
+            new() { Id = 11, BicycleId = Bicycles[1].Id, Bicycle = Bicycles[1], RenterId = Renters[2].Id, Renter = Renters[2], StartTime = DateUtc.AddHours(-15), DurationHours = 3 },
+            new() { Id = 12, BicycleId = Bicycles[2].Id, Bicycle = Bicycles[2], RenterId = Renters[4].Id, Renter = Renters[4], StartTime = DateUtc.AddHours(-20), DurationHours = 4 },
+            new() { Id = 13, BicycleId = Bicycles[5].Id, Bicycle = Bicycles[5], RenterId = Renters[0].Id, Renter = Renters[0], StartTime = DateUtc.AddHours(-30), DurationHours = 2 },
+            new() { Id = 14, BicycleId = Bicycles[7].Id, Bicycle = Bicycles[7], RenterId = Renters[3].Id, Renter = Renters[3], StartTime = DateUtc.AddHours(-25), DurationHours = 5 },
+            new() { Id = 15, BicycleId = Bicycles[9].Id, Bicycle = Bicycles[9], RenterId = Renters[6].Id, Renter = Renters[6], StartTime = DateUtc.AddHours(-50), DurationHours = 3 },
+            new() { Id = 16, BicycleId = Bicycles[0].Id, Bicycle = Bicycles[0], RenterId = Renters[1].Id, Renter = Renters[1], StartTime = DateUtc.AddHours(-35), DurationHours = 2 },
+            new() { Id = 17, BicycleId = Bicycles[4].Id, Bicycle = Bicycles[4], RenterId = Renters[9].Id, Renter = Renters[9], StartTime = DateUtc.AddHours(-40), DurationHours = 6 },
+            new() { Id = 18, BicycleId = Bicycles[3].Id, Bicycle = Bicycles[3], RenterId = Renters[5].Id, Renter = Renters[5], StartTime = DateUtc.AddHours(-18), DurationHours = 7 },
+            new() { Id = 19, BicycleId = Bicycles[8].Id, Bicycle = Bicycles[8], RenterId = Renters[8].Id, Renter = Renters[8], StartTime = DateUtc.AddHours(-28), DurationHours = 5 },
+            new() { Id = 20, BicycleId = Bicycles[6].Id, Bicycle = Bicycles[6], RenterId = Renters[2].Id, Renter = Renters[2], StartTime = DateUtc.AddHours(-16), DurationHours = 3 },
+            new() { Id = 21, BicycleId = Bicycles[5].Id, Bicycle = Bicycles[5], RenterId = Renters[0].Id, Renter = Renters[0], StartTime = DateUtc.AddDays(-3).AddHours(-4), DurationHours = 6 },
+            new() { Id = 22, BicycleId = Bicycles[2].Id, Bicycle = Bicycles[2], RenterId = Renters[4].Id, Renter = Renters[4], StartTime = DateUtc.AddDays(-2).AddHours(-2), DurationHours = 4 },
+            new() { Id = 23, BicycleId = Bicycles[7].Id, Bicycle = Bicycles[7], RenterId = Renters[7].Id, Renter = Renters[7], StartTime = DateUtc.AddDays(-1).AddHours(-1), DurationHours = 2 },
+            new() { Id = 24, BicycleId = Bicycles[1].Id, Bicycle = Bicycles[1], RenterId = Renters[3].Id, Renter = Renters[3], StartTime = DateUtc.AddDays(-1).AddHours(-5), DurationHours = 5 },
+            new() { Id = 25, BicycleId = Bicycles[8].Id, Bicycle = Bicycles[8], RenterId = Renters[8].Id, Renter = Renters[8], StartTime = DateUtc.AddDays(-2).AddHours(-3), DurationHours = 7 },
+            new() { Id = 26, BicycleId = Bicycles[0].Id, Bicycle = Bicycles[0], RenterId = Renters[2].Id, Renter = Renters[2], StartTime = DateUtc.AddDays(-4).AddHours(-6), DurationHours = 2 },
+            new() { Id = 27, BicycleId = Bicycles[5].Id, Bicycle = Bicycles[5], RenterId = Renters[6].Id, Renter = Renters[6], StartTime = DateUtc.AddDays(-5).AddHours(-3), DurationHours = 5 },
+            new() { Id = 28, BicycleId = Bicycles[9].Id, Bicycle = Bicycles[9], RenterId = Renters[4].Id, Renter = Renters[4], StartTime = DateUtc.AddDays(-6).AddHours(-2), DurationHours = 3 },
+            new() { Id = 29, BicycleId = Bicycles[2].Id, Bicycle = Bicycles[2], RenterId = Renters[9].Id, Renter = Renters[9], StartTime = DateUtc.AddDays(-7).AddHours(-1), DurationHours = 4 },
+            new() { Id = 30, BicycleId = Bicycles[6].Id, Bicycle = Bicycles[6], RenterId = Renters[5].Id, Renter = Renters[5], StartTime = DateUtc.AddDays(-8).AddHours(-2), DurationHours = 6 },
+            new() { Id = 31, BicycleId = Bicycles[5].Id, Bicycle = Bicycles[5], RenterId = Renters[3].Id, Renter = Renters[3], StartTime = DateUtc.AddDays(-10).AddHours(-5), DurationHours = 5 },
+            new() { Id = 32, BicycleId = Bicycles[9].Id, Bicycle = Bicycles[9], RenterId = Renters[0].Id, Renter = Renters[0], StartTime = DateUtc.AddDays(-12).AddHours(-3), DurationHours = 4 },
+            new() { Id = 33, BicycleId = Bicycles[4].Id, Bicycle = Bicycles[4], RenterId = Renters[8].Id, Renter = Renters[8], StartTime = DateUtc.AddDays(-15).AddHours(-6), DurationHours = 7 },
+            new() { Id = 34, BicycleId = Bicycles[6].Id, Bicycle = Bicycles[6], RenterId = Renters[7].Id, Renter = Renters[7], StartTime = DateUtc.AddDays(-18).AddHours(-4), DurationHours = 5 },
+            new() { Id = 35, BicycleId = Bicycles[2].Id, Bicycle = Bicycles[2], RenterId = Renters[1].Id, Renter = Renters[1], StartTime = DateUtc.AddDays(-20).AddHours(-3), DurationHours = 3 }
         ];
     }
 }

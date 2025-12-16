@@ -64,8 +64,8 @@ public class RentalService(
     public async Task<RentalDto> Update(RentalCreateUpdateDto dto, int dtoId)
     {
         var entity = await rentalRepository.Read(dtoId) ?? throw new KeyNotFoundException($"Rental with id '{dtoId}' was not found.");
-        _ = await bicycleRepository.Read(dto.BicycleId) ?? throw new InvalidOperationException($"Bicycle with id '{dto.BicycleId}' was not found.");
-        _ = await renterRepository.Read(dto.RenterId) ?? throw new InvalidOperationException($"Renter with id '{dto.RenterId}' was not found.");
+        _ = await bicycleRepository.Read(dto.BicycleId) ?? throw new KeyNotFoundException($"Bicycle with id '{dto.BicycleId}' was not found.");
+        _ = await renterRepository.Read(dto.RenterId) ?? throw new KeyNotFoundException($"Renter with id '{dto.RenterId}' was not found.");
         mapper.Map(dto, entity);
 
         var updated = await rentalRepository.Update(entity);
