@@ -222,19 +222,74 @@
 
 ---
 
-### **6. BikeRental.AppHost** — Aspire (оркестрация)
+### **6. BikeRental.Infrastructure.RabbitMq** — интеграция RabbitMQ
 
-Используется для локального запуска и управления инфраструктурой.
+Содержит компоненты для работы с RabbitMQ на стороне основного API.
 
-#### 📄 Что делает
+#### 📄 Основные файлы
 
-- поднимает контейнер **MS SQL Server**;
-- поднимает **BikeRental.Api.Host**;
-- связывает сервисы и передаёт строки подключения через Aspire-конфигурацию.
+* **BikeRentalRabbitMqConsumer**
+  - фоновой consumer (`BackgroundService`), который слушает очередь, заданную параметром конфигурации `RabbitMq:QueueName`;
+  - ожидает в сообщении JSON-массив `List<RentalCreateUpdateDto>`;
+  - для каждого DTO создаёт запись аренды через `IApplicationService<RentalDto, RentalCreateUpdateDto, int>`;
+  - использует `IServiceScopeFactory` для корректного создания scope на обработку сообщений;
+  - логирует обработку и предупреждения при отсутствии связанных сущностей (например, `Bicycle`/`Renter`).
 
 ---
 
-### **7. BikeRental.ServiceDefaults** — общие настройки
+### **7. BikeRental.Generator.RabbitMq.Host** — генератор сообщений в RabbitMQ
+
+Отдельный Web API сервис, который генерирует тестовые договоры аренды и публикует их в RabbitMQ.
+
+#### 📁 Controllers
+
+* **Controllers/GeneratorController**
+  - эндпоинт: `GET /api/generator`;
+  - query-параметры:
+    - `batchSize` — размер батча (должен быть > 0);
+    - `payloadLimit` — общее количество DTO для генерации (должен быть > 0);
+    - `waitTime` — задержка между батчами в секундах (должен быть >= 0);
+  - генерирует DTO через `RentalGenerator`, публикует через `BikeRentalRabbitMqProducer`, возвращает полный список DTO в ответе.
+
+#### 📁 Generator
+
+* **Generator/RentalGenerator**
+  - генерация `RentalCreateUpdateDto` через библиотеку **Bogus**;
+  - правила генерации (по умолчанию):
+    - `BicycleId`: 1..24
+    - `RenterId`: 1..20
+    - `StartTime`: последние 30 дней
+    - `DurationHours`: 1..72
+
+#### 📄 Интеграция с RabbitMQ
+
+* **BikeRentalRabbitMqProducer**
+  - сериализует батч в UTF-8 JSON;
+  - публикует одно сообщение (весь батч) в очередь `RabbitMq:QueueName`.
+
+---
+
+### **8. BikeRental.AppHost** — Aspire (оркестрация)
+
+Используется для локального запуска и управления инфраструктурой (Aspire).
+
+- поднимает контейнер **MS SQL Server** и базу данных `BikeRentalDb`;
+- поднимает контейнер **RabbitMQ** (с включённым management plugin);
+- запускает **BikeRental.Api.Host** и **BikeRental.Generator.RabbitMq.Host**;
+- связывает сервисы и передаёт настройки через Aspire references и переменные окружения.
+
+#### 🔧 Параметры Aspire
+
+AppHost использует параметры:
+- `RabbitMQQueue` — имя очереди;
+- `RabbitMQLogin` — логин пользователя RabbitMQ;
+- `RabbitMQPassword` — пароль пользователя RabbitMQ.
+
+Имя очереди прокидывается в сервисы как переменная окружения `RabbitMq:QueueName`.
+
+---
+
+### **9. BikeRental.ServiceDefaults** — общие настройки
 
 Содержит общие настройки сервисов (для Aspire и API), например:
 - логирование;
@@ -243,7 +298,7 @@
 
 ---
 
-### **8. BikeRental.Tests** — модульное тестирование
+### **10. BikeRental.Tests** — модульное тестирование
 
 Набор тестов, проверяющих корректность аналитических запросов и выборок.
 
@@ -273,5 +328,9 @@
 | **AutoMapper**                     | маппинг Entity ⇄ DTO                             |
 | **xUnit**                          | фреймворк модульного тестирования                |
 | **LINQ**                           | запросы, агрегации и аналитика                   |
-| **Docker**                         | контейнеризация SQL Server                       |
+| **Docker**                         | контейнеризация SQL Server и RabbitMQ            |
+| **RabbitMQ**                       | брокер сообщений (очереди)                       |
+| **RabbitMQ.Client**                | AMQP клиент для .NET                             |
+| **Bogus**                          | генерация тестовых данных                        |
+| **Swagger (Swashbuckle)**          | документация и тестирование API                  |
 | **Visual Studio 2022**             | среда разработки                                 |
