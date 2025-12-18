@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeRental.AppHost", "BikeR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeRental.ServiceDefaults", "BikeRental.ServiceDefaults\BikeRental.ServiceDefaults.csproj", "{6C958A7B-DFCF-E37F-C7A1-0E738AF54AF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeRental.Infrastructure.RabbitMq", "BikeRental.Infrastructure.RabbitMq\BikeRental.Infrastructure.RabbitMq.csproj", "{95318B48-0542-4555-8B52-FA6B098A7D8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{6C958A7B-DFCF-E37F-C7A1-0E738AF54AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C958A7B-DFCF-E37F-C7A1-0E738AF54AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C958A7B-DFCF-E37F-C7A1-0E738AF54AF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95318B48-0542-4555-8B52-FA6B098A7D8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95318B48-0542-4555-8B52-FA6B098A7D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95318B48-0542-4555-8B52-FA6B098A7D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95318B48-0542-4555-8B52-FA6B098A7D8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
