@@ -82,7 +82,7 @@ public class BikeRentalRabbitMqConsumer(IConnection connection, IServiceScopeFac
                 {
                     await rentalService.Create(contract);
                 }
-                catch (KeyNotFoundException ex)
+                catch (InvalidOperationException ex)
                 {
                     logger.LogWarning(ex, "Skipping contract due to missing related entity in {queue} with BicycleId {bicycleId} and RenterId {renterId}", _queueName, contract.BicycleId, contract.RenterId);
                 }
@@ -90,7 +90,7 @@ public class BikeRentalRabbitMqConsumer(IConnection connection, IServiceScopeFac
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Exception occured during receiving contracts from {queue}", _queueName);
+            logger.LogError(ex, "Exception occurred during receiving contracts from {queue}", _queueName);
         }
     }
 }

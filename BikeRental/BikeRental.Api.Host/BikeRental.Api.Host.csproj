@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.0.2" />
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="13.1.0" />
+    <PackageReference Include="Aspire.RabbitMQ.Client" Version="13.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BikeRental.Application\BikeRental.Application.csproj" />
     <ProjectReference Include="..\BikeRental.Infrastructure.EfCore\BikeRental.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\BikeRental.Infrastructure.RabbitMq\BikeRental.Infrastructure.RabbitMq.csproj" />
     <ProjectReference Include="..\BikeRental.ServiceDefaults\BikeRental.ServiceDefaults.csproj" />
   </ItemGroup>
 

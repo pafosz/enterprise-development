@@ -2,7 +2,7 @@ name: .NET CI — BikeRental (Lab 1, Variant 70)
 
 on:
   push:
-    branches: ["lab_1", "lab_3", "main"]
+    branches: ["lab_1", "lab_3", "lab_4", "main"]
   pull_request:
     branches: ["main"]
 

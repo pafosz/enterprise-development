@@ -8,6 +8,7 @@ using BikeRental.Application.Services;
 using BikeRental.Domain;
 using BikeRental.Infrastructure.EfCore;
 using BikeRental.Infrastructure.EfCore.Repositories;
+using BikeRental.Infrastructure.RabbitMq;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -56,6 +57,9 @@ builder.Services.AddSwaggerGen(c =>
     }
 
 });
+
+builder.Services.AddHostedService<BikeRentalRabbitMqConsumer>();
+builder.AddRabbitMQClient("bike-rental-rabbitmq");
 
 var app = builder.Build();
 
