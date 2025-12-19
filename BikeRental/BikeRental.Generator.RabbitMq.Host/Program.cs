@@ -6,7 +6,7 @@ builder.AddServiceDefaults();
 
 builder.AddRabbitMQClient("bike-rental-rabbitmq");
 
-builder.Services.AddScoped<BikeRentalRabbitMqProducer>();
+builder.Services.AddSingleton<BikeRentalRabbitMqProducer>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

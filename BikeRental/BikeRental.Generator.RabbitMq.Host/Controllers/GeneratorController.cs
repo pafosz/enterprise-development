@@ -52,9 +52,16 @@ public class GeneratorController(ILogger<GeneratorController> logger, BikeRental
 
                 var batch = RentalGenerator.GenerateRentals(currentBatchSize);
 
-                await producerService.SendAsync(batch, cancellationToken);
+                var sent = await producerService.SendAsync(batch, cancellationToken);
 
-                logger.LogInformation("Batch of {batchSize} items has been sent", batch.Count);
+                if (sent)
+                {
+                    logger.LogInformation("Batch of {batchSize} items has been sent", batch.Count);
+                }
+                else
+                {
+                    logger.LogWarning("Batch of {batchSize} items was not sent", batch.Count);
+                }
 
                 counter += batch.Count;
                 list.AddRange(batch);

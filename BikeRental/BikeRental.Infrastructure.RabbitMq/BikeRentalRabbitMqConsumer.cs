@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text.Json;
+using System.Threading.Channels;
 
 namespace BikeRental.Infrastructure.RabbitMq;
 
@@ -14,9 +15,14 @@ namespace BikeRental.Infrastructure.RabbitMq;
 /// RabbitMQ consumer (hosted background service) that listens to a configured queue and processes
 /// incoming rental contracts by creating rentals through the application service layer.
 /// </summary>
-public class BikeRentalRabbitMqConsumer(IConnection connection, IServiceScopeFactory scopeFactory, IConfiguration configuration, ILogger<BikeRentalRabbitMqConsumer> logger) : BackgroundService
+public class BikeRentalRabbitMqConsumer(
+    IConnection connection, 
+    IServiceScopeFactory scopeFactory, 
+    IConfiguration configuration, 
+    ILogger<BikeRentalRabbitMqConsumer> logger) : BackgroundService
 {
-    private readonly string _queueName = configuration.GetSection("RabbitMq")["QueueName"] ?? throw new KeyNotFoundException("QueueName section of RabbitMq is missing");
+    private readonly string _queueName = configuration.GetSection("RabbitMq")["QueueName"] 
+        ?? throw new KeyNotFoundException("QueueName section of RabbitMq is missing");
 
     /// <summary>
     /// Establishes an AMQP channel, declares the queue, and starts consuming messages
@@ -35,9 +41,9 @@ public class BikeRentalRabbitMqConsumer(IConnection connection, IServiceScopeFac
             logger.LogInformation("Began listening to queue {queue}", _queueName);
 
             var consumer = new AsyncEventingBasicConsumer(channel);
-            consumer.ReceivedAsync += async (_, ea) => await ReceiveMessage(ea, stoppingToken);
+            consumer.ReceivedAsync += async (_, ea) => await ReceiveMessage(channel, ea, stoppingToken);
 
-            await channel.BasicConsumeAsync(queue: _queueName, autoAck: true, consumer: consumer, cancellationToken: stoppingToken);
+            await channel.BasicConsumeAsync(queue: _queueName, autoAck: false, consumer: consumer, cancellationToken: stoppingToken);
 
             await Task.Delay(Timeout.Infinite, stoppingToken);
         }
@@ -62,7 +68,7 @@ public class BikeRentalRabbitMqConsumer(IConnection connection, IServiceScopeFac
     /// </summary>
     /// <param name="args">RabbitMQ delivery arguments containing the message payload.</param>
     /// <param name="stoppingToken">Cancellation token propagated from the hosted service.</param>
-    private async Task ReceiveMessage(BasicDeliverEventArgs args, CancellationToken stoppingToken)
+    private async Task ReceiveMessage(IChannel channel, BasicDeliverEventArgs args, CancellationToken stoppingToken)
     {
         logger.LogInformation("Received a message from queue {queue}", _queueName);
 
@@ -87,10 +93,25 @@ public class BikeRentalRabbitMqConsumer(IConnection connection, IServiceScopeFac
                     logger.LogWarning(ex, "Skipping contract due to missing related entity in {queue} with BicycleId {bicycleId} and RenterId {renterId}", _queueName, contract.BicycleId, contract.RenterId);
                 }
             }
+
+            await channel.BasicAckAsync(deliveryTag: args.DeliveryTag, multiple: false, cancellationToken: stoppingToken);
+        }
+        catch (OperationCanceledException)
+        {
+            logger.LogInformation("Message processing cancelled for {queue}", _queueName);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Exception occurred during receiving contracts from {queue}", _queueName);
+
+            try
+            {
+                await channel.BasicNackAsync(deliveryTag: args.DeliveryTag, multiple: false, requeue: true, cancellationToken: stoppingToken);
+            }
+            catch (Exception nackEx)
+            {
+                logger.LogError(nackEx, "Failed to NACK message back to {queue}", _queueName);
+            }
         }
     }
 }
